@@ -25,30 +25,30 @@ async function SearchResult({ q }: { q: string }) {
 }
 
 type Props = {
-  searchParams: {
-    q?: string;
-  };
+  searchParams: Promise<{ [key: string]: string }>
 };
 
-export function generateMetadata({ searchParams }: Props): Metadata {
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const params = await searchParams;
   return {
-    title: `${searchParams.q} : 한입북스 검색`,
-    description: `${searchParams.q} 검색 결과입니다`,
+    title: `${params.q} : 한입북스 검색`,
+    description: `${params.q} 검색 결과입니다`,
     openGraph: {
-      title: `${searchParams.q} : 한입북스 검색`,
-      description: `${searchParams.q} 검색 결과입니다`,
+      title: `${params.q} : 한입북스 검색`,
+      description: `${params.q} 검색 결과입니다`,
       images: ["/thumbnail.png"],
     },
   };
 }
 
-export default function Page({ searchParams }: Props) {
+export default async function Page({ searchParams }: Props) {
+  const param = (await searchParams).q || "";
   return (
     <Suspense
-      key={searchParams.q || ""}
+      key={param || ""}
       fallback={<BookListSkeleton count={3} />}
     >
-      <SearchResult q={searchParams.q || ""} />
+      <SearchResult q={param || ""} />
     </Suspense>
   );
 }

@@ -90,14 +90,15 @@ async function ReviewList({ bookId }: { bookId: string }) {
     </section>
   );
 }
-
+type Params = Promise<{ id: string }>;
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Params;
 }): Promise<Metadata | null> {
+  const id = (await params).id;
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${params.id}`,
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`,
     { cache: "force-cache" }
   );
   if (!response.ok) {
@@ -117,12 +118,13 @@ export async function generateMetadata({
   };
 }
 
-export default function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Params }) {
+  const id = (await params).id;
   return (
     <div className={style.container}>
-      <BookDetail bookId={params.id} />
-      <ReviewEditor bookId={params.id} />
-      <ReviewList bookId={params.id} />
+      <BookDetail bookId={id} />
+      <ReviewEditor bookId={id} />
+      <ReviewList bookId={id} />
     </div>
   );
 }

@@ -20,7 +20,10 @@ export default function Searchbar() {
   };
 
   const onSubmit = () => {
-    if (!search || q === search) return;
+    if (q === search) return;
+    if (!search || search.trim() === "") {
+      router.push(`/`);
+    }
     router.push(`/search?q=${search}`);
   };
 
