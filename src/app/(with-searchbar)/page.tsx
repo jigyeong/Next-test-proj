@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className={style.container}>
+    <div className={style.container} data-testid="index">
       <section>
         <h3>지금 추천하는 도서</h3>
         <RecoBooks />

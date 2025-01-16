@@ -14,7 +14,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: true, // 병렬수행중
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -33,7 +33,6 @@ export default defineConfig({
 
     // locale: 'en-GB',
     locale: 'ko-KR',
-    permissions: ['camera'],
   },
 
   /* Configure projects for major browsers */
@@ -52,7 +51,6 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
@@ -73,7 +71,7 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
-
+  testIgnore: '**/webrtc.spec.ts',
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run start',

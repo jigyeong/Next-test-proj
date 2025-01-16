@@ -16,7 +16,7 @@ async function SearchResult({ q }: { q: string }) {
   const books: BookData[] = await response.json();
 
   return (
-    <div>
+    <div data-testid="books">
       {books.map((book) => (
         <BookItem key={book.id} {...book} />
       ))}
