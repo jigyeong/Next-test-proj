@@ -8,6 +8,14 @@ const nextConfig = {
   images: {
     domains: ["shopping-phinf.pstatic.net"],
   },
+  compiler: {
+    removeConsole: {
+      exclude: ['error']
+    }
+  },
+  experimental: {
+    swcPlugins: []
+  }
 };
 
 export default nextConfig;
