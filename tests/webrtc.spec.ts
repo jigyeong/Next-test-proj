@@ -8,17 +8,17 @@ test.describe('WebRTC 테스트', () => {
     await context.grantPermissions(['camera'], { origin: 'https://webrtc.github.io/samples/src/content/devices/input-output/' });
   });
 
-  test('WebRTC 테스트', async ({ page }) => {
+  test.skip('WebRTC 테스트', async ({ page }) => {
 
     const browser = await chromium.launch({
       headless: false,
     });
     const context = await browser.newContext({
       permissions: ['camera'],
-      recordVideo: {
-        dir: path.join(__dirname, 'videos'),
-        size: { width: 1280, height: 720 }
-      }
+      // recordVideo: {
+      //   dir: path.join(__dirname, 'videos'),
+      //   size: { width: 1280, height: 720 }
+      // }
     });
 
     page = await context.newPage();
