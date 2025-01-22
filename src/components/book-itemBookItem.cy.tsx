@@ -10,7 +10,7 @@ describe('<BookItem />', () => {
         const book = response.body
         cy.mount(<BookItem {...book} />)
         console.log('book', book)
+        cy.get('img').should('have.attr', 'src', book.coverImgUrl)
       })
-    // cy.mount(<BookItem id={1} title={'Title'} subTitle={'subTitle'} author={'aa'} publisher={''} description={''} coverImgUrl={''} />)
   })
 })
