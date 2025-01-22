@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:cy": "npx cypress open"
+    "cy:open": "npx cypress open"
   },
   "dependencies": {
     "next": "^15",
