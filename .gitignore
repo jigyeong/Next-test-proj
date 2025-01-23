@@ -41,3 +41,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /tests/videos/
+/tests/test-results/
