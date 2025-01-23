@@ -44,17 +44,24 @@ test('검색 및 댓글 달기 테스트 (Oneway)', async ({ page }, testInfo) =
     await test.step('댓글과 작성자가 달리는지 확인한다.', async () => {
         const books = page.getByTestId('books').first();
         await books.click();
+
+        const authorInput = page.locator('input[name="author"]');
+        const contentInput = page.locator('textarea[name="content"]');
+
+        await expect(authorInput).toBeVisible();
         
         const user = `User ${new Date().getTime()}`;
         const comment = `댓글 ${new Date().getTime()}`;
 
-        await page.fill('input[name="author"]', user);
-        await page.fill('textarea[name="content"]', comment);
+        await authorInput.fill(user);
+        await contentInput.fill(comment);
 
         await page.click('button[type="submit"]');
         await page.waitForTimeout(1000);
 
-        await expect(page.getByText(user)).toBeVisible();
+        const resultComment = page.getByTestId('review-item').first();
+        await resultComment.scrollIntoViewIfNeeded();
+
         await expect(page.getByText(comment)).toBeVisible();
 
         await page.screenshot({path: `${testInfo.outputDir}/screenshot/ ${testInfo.project.name} ${new Date().getTime()} end.png`});

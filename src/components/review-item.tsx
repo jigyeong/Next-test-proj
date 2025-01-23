@@ -10,7 +10,7 @@ export default function ReviewItem({
   bookId,
 }: ReviewData) {
   return (
-    <div className={style.container}>
+    <div className={style.container} data-testid="review-item">
       <div className={style.author}>{author}</div>
       <div className={style.content}>{content}</div>
       <div className={style.bottom_container}>
