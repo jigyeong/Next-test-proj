@@ -1,16 +1,6 @@
 import {test, expect} from '@playwright/test';
 
 test.describe.parallel('검색 및 댓글 달기 테스트 (Parallel)', () => {
-    test('데이터 서버가 문제없는지 확인한다.', async ({ page }) => {
-        const response = await page.request.get('http://localhost:12345/book');
-        await expect(response).toBeOK();
-    })
-
-    test('페이지가 잘 뜨는지 확인한다.', async({page}, testInfo)=>{
-        await page.goto('/');
-        await page.screenshot({path: `${testInfo.outputDir}/screenshot/ ${testInfo.project.name} ${new Date().getTime()}.png`});
-        await expect(page.getByTestId('index')).toBeVisible();
-    })
 
     test('검색창에 타이핑한 키워드가 검색이 되는지 확인한다.', async ({page}) => {
         await page.goto('/');
@@ -41,4 +31,15 @@ test.describe.parallel('검색 및 댓글 달기 테스트 (Parallel)', () => {
         await expect(page.getByText(comment)).toBeVisible();
 
     });
+
+    test('데이터 서버가 문제없는지 확인한다.', async ({ page }) => {
+        const response = await page.request.get('http://localhost:12345/book');
+        await expect(response).toBeOK();
+    })
+
+    test('페이지가 잘 뜨는지 확인한다.', async({page}, testInfo)=>{
+        await page.goto('/');
+        await page.screenshot({path: `${testInfo.outputDir}/screenshot/ ${testInfo.project.name} ${new Date().getTime()}.png`});
+        await expect(page.getByTestId('index')).toBeVisible();
+    })
 })
