@@ -25,9 +25,22 @@ test.describe('검색 및 댓글 달기 테스트', () => {
         await expect(books.getByText(SEARCH_WORD)).toBeVisible();
     });
 
-    test.skip('댓글과 작성자가 달리는지 확인한다.', async ({page}) => {
-        const books = page.getByTestId('books');
-        await books.click();
+    test('댓글과 작성자가 달리는지 확인한다.', async ({page}) => {
+        await page.goto('/book/1');
+        // const books = page.getByTestId('books').first();
+        // await books.click();
+        
+        const user = `User ${new Date().getTime()}`;
+        const comment = `댓글 ${new Date().getTime()}`;
+
+        await page.fill('input[name="author"]', user);
+        await page.fill('textarea[name="content"]', comment);
+
+        await page.click('button[type="submit"]');
+        await page.waitForTimeout(1000);
+
+        await expect(page.getByText(user)).toBeVisible();
+        await expect(page.getByText(comment)).toBeVisible();
 
     });
 })
